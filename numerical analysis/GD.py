@@ -2,7 +2,7 @@ acctitle="迭代次数与准确性的关系图-GD"
 accsave='迭代次数与准确性的关系图-GD.png'
 losstitle="迭代次数与误差的关系图-GD"
 losssave='迭代次数与误差的关系图-GD.png'
-label='GD'
+labell='GD'
 
 import  os
 import  tensorflow as tf
@@ -105,19 +105,19 @@ acc = correct / len(attribute)
 print(acc)
 
 x=np.linspace(1,len(accc),len(accc))
-plt.plot(x,accc,c='r',label="wine")
+plt.plot(x,accc,c='r',label=labell)
 plt.xlabel("迭代次数")
 plt.ylabel("准确性")
 plt.legend(loc=4) 
-plt.title("迭代次数与准确性的关系图-wine")
-plt.savefig('迭代次数与准确性的关系图-wine.png',dpi=500,bbox_inches='tight')
+plt.title(acctitle)
+plt.savefig(accsave,dpi=500,bbox_inches='tight')
 plt.show()
 
 x=np.linspace(1,len(losss),len(losss))
-plt.plot(x,losss,c='g',label="wine")
+plt.plot(x,losss,c='g',label=labell)
 plt.xlabel("迭代次数")
 plt.ylabel("误差")
 plt.legend(loc=4) 
-plt.title("迭代次数与误差的关系图-wine")
-plt.savefig('迭代次数与误差的关系图-wine.png',dpi=500,bbox_inches='tight')
+plt.title(losstitle)
+plt.savefig(losssave,dpi=500,bbox_inches='tight')
 plt.show()
