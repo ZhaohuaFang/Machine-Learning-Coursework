@@ -1,3 +1,9 @@
+acctitle="迭代次数与准确性的关系图-GD"
+accsave='迭代次数与准确性的关系图-GD.png'
+losstitle="迭代次数与误差的关系图-GD"
+losssave='迭代次数与误差的关系图-GD.png'
+label='GD'
+
 import  os
 import  tensorflow as tf
 import  numpy as np
