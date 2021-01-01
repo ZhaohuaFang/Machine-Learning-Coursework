@@ -14,6 +14,7 @@ plt.rcParams['font.sans-serif']=['SimHei']
 plt.rcParams['axes.unicode_minus']=False  
 from    tensorflow import keras
 from    tensorflow.keras import datasets, layers, optimizers, Sequential, metrics,losses
+tf.random.set_seed(22)
 
 def load_data(root, mode='train'):
     attribute=[]
