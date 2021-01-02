@@ -18,6 +18,9 @@ import seaborn
 from    tensorflow import keras
 from    tensorflow.keras import datasets, layers, optimizers, Sequential, metrics,losses
 
+#random seed is very important for repeating an experiment!
+tf.random.set_seed(22) 
+
 def load_data(root, mode='train'):
     attribute=[]
     label=[]
