@@ -77,3 +77,18 @@ graph
 # graph.render("test",view=True)
 #graph.view()
 # system("dot -Tpng dtree2.png")
+
+clf = tree.DecisionTreeClassifier(criterion="entropy",random_state=30 ,splitter="random") 
+clf = clf.fit(Xtrain, Ytrain) 
+score = clf.score(Xtest, Ytest)
+score
+
+import graphviz 
+dot_data = tree.export_graphviz(clf,feature_names= feature_name,class_names=["琴酒","雪莉","贝尔摩德"],filled=True,rounded=True ) 
+graph = graphviz.Source(dot_data)
+graph.format = 'png'
+graph.render("test",view=True)  
+
+#我们的树对训练集的拟合程度如何？
+score_train = clf.score(Xtrain, Ytrain)
+score_train
