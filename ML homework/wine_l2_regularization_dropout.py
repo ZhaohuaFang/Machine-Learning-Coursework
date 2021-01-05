@@ -188,3 +188,90 @@ plt.legend(loc=4)
 plt.title(title)
 plt.savefig(save_png,dpi=500,bbox_inches='tight')
 plt.show()
+
+# model1.save_weights('wine_nn_advance1')
+# model2.save_weights('wine_nn_advance2')
+# model3.save_weights('wine_nn_advance3')
+# model4.save_weights('wine_nn_advance4')
+# model5.save_weights('wine_nn_advance5')
+model1.load_weights('wine_nn_advance1')
+model2.load_weights('wine_nn_advance2')
+model3.load_weights('wine_nn_advance3')
+model4.load_weights('wine_nn_advance4')
+model5.load_weights('wine_nn_advance5')
+
+
+
+#making confusion matrix
+import pandas as pd
+import pylab as pl
+import numpy as np
+import scipy.optimize as opt
+from sklearn import svm
+from sklearn import preprocessing
+from sklearn.metrics import classification_report, confusion_matrix
+%matplotlib inline 
+import matplotlib
+import matplotlib.pyplot as plt
+import itertools
+# 下载--解压--移动字体文件
+!wget "https://www.wfonts.com/download/data/2014/06/01/simhei/simhei.zip"
+!unzip "simhei.zip"
+!rm "simhei.zip"
+!mv SimHei.ttf /usr/share/fonts/truetype/
+zhfont = matplotlib.font_manager.FontProperties(fname='/usr/share/fonts/truetype/SimHei.ttf')
+plt.rcParams['axes.unicode_minus'] = False
+
+def plot_confusion_matrix(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.autumn_r):
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes,fontproperties=zhfont, rotation=45)
+    plt.yticks(tick_marks, classes,fontproperties=zhfont)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.savefig('nn_confusion_matrix.png',dpi=500,bbox_inches='tight')
+
+attribute,label=load_data(filename)
+attribute,label=preprocess(attribute,label)
+prediction=model1(attribute)
+prediction=tf.nn.sigmoid(prediction)
+prediction = tf.nn.softmax(prediction, axis=1)
+prediction = tf.argmax(prediction, axis=1)
+prediction = tf.cast(prediction, dtype=tf.int32)
+
+cnf_matrix = confusion_matrix(label,prediction,  labels=[0,1,2])
+np.set_printoptions(precision=2)
+
+print (classification_report(label,prediction))
+
+# Plot non-normalized confusion matrix
+plt.figure()
+plot_confusion_matrix(cnf_matrix, classes=["琴酒","雪莉","贝尔摩德"],normalize= False,  title='Confusion matrix')
+
+from sklearn.metrics import f1_score
+#类别平均
+print(f1_score(label,prediction, average='macro'))
+#样本平均
+print(f1_score(label,prediction, average='micro'))
